@@ -46,7 +46,7 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 2% 10%;
+  padding: 2% 5%;
 }
 #logo-container {
   width: 20%;
@@ -66,12 +66,12 @@ body {
   height: 45%;
 }
 #nav {
-  width: 80%;
+  width: 70%;
   display: flex;
   justify-content: flex-end;
 }
 #search-wrapper {
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -79,8 +79,8 @@ body {
 }
 #search-wrapper>input{
   width: 95%;
-  height: 45%;
-  border-radius: 7px;
+  height: 50%;
+  border-radius: 15px;
   outline: none;
   border: none;
   font-size: larger;
@@ -92,7 +92,6 @@ body {
 #search-container {
   width: 30%;
   height: 30%;
-  overflow: auto;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -114,7 +113,7 @@ body {
   padding: 2% 0%;
 }
 #featured-films-wrapper {
-  width: 80%;
+  width: 90%;
   height: 100%;
 }
 #featured-films {
@@ -166,38 +165,39 @@ body {
 
 /*Tablet and desktop*/
 @media only screen and (min-width: 600px) {
-   #header-wrapper > h1 {
-    font-size: 3rem;
+  #logo-container{
+    width: 10%;
+    height:10%;
+  }
+  #search-wrapper input{
+    height: 25%;
+  }
+  #search{
+    width: 100%;
+    height: 50%;
   }
 
-  /* #featured-films-wrapper {
-    width: 100%;
-    height: 100%;
-  } */
-  /* #featured-films {
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(3, 30%);
-    column-gap: 5%;
-    row-gap: 10%;
-  } */
-  /* .film {
+  #nav{
     display: flex;
-    flex-direction: column-reverse;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  #content-wrapper{
+    height: 100%;
+  }
+  #featured-films {
+    display: grid;
+    justify-content: center;
+    width: 100%;
     margin: 0;
-  } */
-  /* .film > img {
-    width: 12rem;
-    height: 20rem;
-  } */
-  /* .film > h3 {
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
-    font-size: 1.25rem;
+    padding: 0;;
+    grid-template-columns: repeat(3, 30%);
+    column-gap: 3.33%;
+  }
+  .film > h3 {
+    font-size: 1.5vw;
     font-weight: 500;
-    width: 11rem;
-    word-break: break-all;
-  } */
+    width: 50%;
+  }
 }
