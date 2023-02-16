@@ -6,66 +6,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page Peli</title>
     <link rel="stylesheet" href="styles.css" />
+    <script src="main.js" defer></script>
   </head>
   <body>
-    <div id="content">
-      <div id="header">
+    <div id="content-wrapper">
+      <header id="header">
         <div id="header-wrapper">
-          <h1 id="logo">PAGE PELI</h1>
+          <div id="logo-container">
+            <svg
+              id="logo"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M1.5 5.625c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v12.75c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 011.5 18.375V5.625zm1.5 0v1.5c0 .207.168.375.375.375h1.5a.375.375 0 00.375-.375v-1.5a.375.375 0 00-.375-.375h-1.5A.375.375 0 003 5.625zm16.125-.375a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h1.5A.375.375 0 0021 7.125v-1.5a.375.375 0 00-.375-.375h-1.5zM21 9.375A.375.375 0 0020.625 9h-1.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h1.5a.375.375 0 00.375-.375v-1.5zm0 3.75a.375.375 0 00-.375-.375h-1.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h1.5a.375.375 0 00.375-.375v-1.5zm0 3.75a.375.375 0 00-.375-.375h-1.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h1.5a.375.375 0 00.375-.375v-1.5zM4.875 18.75a.375.375 0 00.375-.375v-1.5a.375.375 0 00-.375-.375h-1.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h1.5zM3.375 15h1.5a.375.375 0 00.375-.375v-1.5a.375.375 0 00-.375-.375h-1.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375zm0-3.75h1.5a.375.375 0 00.375-.375v-1.5A.375.375 0 004.875 9h-1.5A.375.375 0 003 9.375v1.5c0 .207.168.375.375.375zm4.125 0a.75.75 0 000 1.5h9a.75.75 0 000-1.5h-9z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <nav id="nav">
+            <div id="search-wrapper">
+              <input type="search" />
+              <div id="search-container">
+                <svg
+                  id="search"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
+          </nav>
         </div>
-      </div>
-      <div id="main-content">
-        <div id="film-poster">
+      </header>
+      <main id="main-content">
+        <article id="film-poster">
           <img
             src="../assets/media/poster-example.jpg"
             alt="example of the poster of a movie"
           />
-        </div>
-        <div id="film-info">
+        </article>
+        <article id="film-info">
           <h1>The mandalorian</h1>
-          <div id="film-info-specs">
-            <div class="info-item" id="year">
+          <section id="film-info-specs">
+            <section class="info-item" id="year">
                 <span><span class="info-term">Year: </span><span class="info-content">2020</span></span>
-            </div>
-            <div class="info-item" id="rated">
+            </section>
+            <section class="info-item" id="rated">
                 <span><span class="info-term">Rated: </span><span class="info-content">TV-14</span></span>
-            </div>
-            <div class="info-item" id="released">
+            </section>
+            <section class="info-item" id="released">
                 <span><span class="info-term">Released: </span><span class="info-content">04 May 2020</span></span>
-            </div>
-            <div class="info-item" id="runtime">
+            </section>
+            <section class="info-item" id="runtime">
                 <span><span class="info-term">Runtime: </span><span class="info-content">33 min</span></span>
-            </div>
-            <div class="info-item" id="genre">
+            </section>
+            <section class="info-item" id="genre">
                 <span><span class="info-term">Genre: </span><span class="info-content">Documentary</span></span>
-            </div>
-            <div class="info-item" id="director">
+            </section>
+            <section class="info-item" id="director">
                 <span><span class="info-term">Director: </span><span class="info-content">N/A</span></span>
-            </div>
-            <div class="info-item" id="writer">
+            </section>
+            <section class="info-item" id="writer">
                 <span><span class="info-term">Writer: </span><span class="info-content">N/A</span></span>
-            </div>
-            <div class="info-item" id="actors">
+            </section>
+            <section class="info-item" id="actors">
                 <span><span class="info-term">Actors: </span><span class="info-content">Jon Favreau, Dave Filoni, Bryce Dallas Howard</span></span>
-            </div>
-            <div class="info-item" id="plot">
+            </section>
+            <section class="info-item" id="plot">
                 <span><span class="info-term">Plot: </span><span class="info-content">A behind the scenes look at the making of the Disney+ series \"The Mandalorian.\"</span></span>
-            </div>
-            <div class="info-item" id="language">
+            </section>
+            <section class="info-item" id="language">
                 <span><span class="info-term">Language: </span><span class="info-content">English</span></span>
-            </div>
-            <div class="info-item" id="country">
+            </section>
+            <section class="info-item" id="country">
                 <span><span class="info-term">Country: </span><span class="info-content">United States</span></span>
-            </div>
-            <div class="info-item" id="awards">
+            </section>
+            <section class="info-item" id="awards">
                 <span><span class="info-term">Awards: </span><span class="info-content">N/A</span></span>
-            </div>
+            </section>
             <div id="film-rating">
                 <img src="../assets/icons/icons8-imdb-96.png" alt="IMDB icon">
                 <span id="rating-score">8.4/10</span>
             </div>
-          </div>
-        </div>
+          </section>
+        </article>
+      </main>
+      <div id="footer">
+        <span><span>KataPelis</span> 🎬🍿</span>
       </div>
     </div>
   </body>
