@@ -1,9 +1,11 @@
-<script setup></script>
+<script setup>
+import { RouterLink } from 'vue-router'
+</script>
 
 <template>
   <header>
     <div id="header-wrapper">
-      <div id="logo-container">
+      <router-link to="/" id="logo-container">
         <svg
           id="logo"
           xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +19,7 @@
             clip-rule="evenodd"
           />
         </svg>
-      </div>
+      </router-link>
       <nav id="nav">
         <div id="search-wrapper">
           <input type="search" />
