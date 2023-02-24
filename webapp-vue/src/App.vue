@@ -22,11 +22,11 @@ import HeaderPage from './components/HeaderPage.vue'
   padding: 0;
   margin: 0;
 }
-/* @font-face {
+@font-face {
   font-family: 'Inter';
-  src: url('../../maqueta/assets/Inter/Inter-VariableFont_slnt\,wght.ttf')
+  src: url('./assets/Inter/Inter-VariableFont_slnt\,wght.ttf')
     format('truetype');
-} */
+}
 :root {
   --light-blue: #004e92;
   --dark-blue: #000428;
