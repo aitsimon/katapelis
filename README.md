@@ -51,7 +51,7 @@ Para ejecutar los tests `yarn test:unit`
 ## API de pelis
 
 * URL: `https://www.omdbapi.com/`
-* Api key: `ab64c929`
+
 
 ## Testing
 

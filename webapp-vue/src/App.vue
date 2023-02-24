@@ -24,7 +24,7 @@ import HeaderPage from './components/HeaderPage.vue'
 }
 @font-face {
   font-family: 'Inter';
-  src: url('./assets/Inter/Inter-VariableFont_slnt\,wght.ttf')
+  src: url('./src/assets/Inter/Inter-VariableFont_slnt\,wght.ttf')
     format('truetype');
 }
 :root {

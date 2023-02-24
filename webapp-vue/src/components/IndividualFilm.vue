@@ -103,7 +103,7 @@ getData()
         </section>
         <div id="film-rating">
           <img src="../assets/icons8-imdb-96.png" alt="IMDB icon" />
-          <span id="rating-score">{{ film.Ratings[0].Value }}</span>
+          <span id="rating-score">{{ film?.Ratings?.[0].Value }}</span>
         </div>
       </section>
     </article>
