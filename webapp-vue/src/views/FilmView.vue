@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
+
 const route = useRoute()
 const film = ref([])
 const getData = async () => {
@@ -34,7 +35,7 @@ getData()
         <section class="info-item" id="rated">
           <span
             ><span class="info-term">Rated: </span
-            ><span class="info-content">{{ film.Rated}}</span></span
+            ><span class="info-content">{{ film.Rated }}</span></span
           >
         </section>
         <section class="info-item" id="released">
@@ -70,17 +71,13 @@ getData()
         <section class="info-item" id="actors">
           <span
             ><span class="info-term">Actors: </span
-            ><span class="info-content"
-              >{{ film.Actors }}</span
-            ></span
+            ><span class="info-content">{{ film.Actors }}</span></span
           >
         </section>
         <section class="info-item" id="plot">
           <span
             ><span class="info-term">Plot: </span
-            ><span class="info-content"
-              >{{film.Plot}}</span
-            ></span
+            ><span class="info-content">{{ film.Plot }}</span></span
           >
         </section>
         <section class="info-item" id="language">
@@ -110,7 +107,7 @@ getData()
   </div>
 </template>
 
-<style>
+<style scoped>
 /* Content */
 #main-content {
   display: flex;

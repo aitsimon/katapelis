@@ -1,17 +1,35 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 
-defineProps(['titulo', 'poster', 'id'])
+defineProps({
+  titulo: {
+    type: String,
+    default: 'Default name',
+  },
+  poster: {
+    type: String,
+    default: 'assets/imgs/imgPlaceholder.png',
+  },
+  id: {
+    type: String,
+    required: true,
+  },
+})
+const handlePoster = url => {
+  return url !== 'N/A' ? url : 'src/assets/imgs/imagePlaceHolder.png'
+}
 </script>
 
 <template>
   <section class="film">
-    <router-link :to="`/${ id }`"> <span> {{ titulo }}</span></router-link>
-      <img :src="`${poster}`" />
+    <router-link :to="`/${id}`">
+      <span> {{ titulo }}</span></router-link
+    >
+    <img :src="handlePoster(poster)" />
   </section>
 </template>
 
-<style>
+<style scoped>
 .film {
   display: flex;
   flex-direction: column-reverse;
