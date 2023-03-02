@@ -30,5 +30,6 @@ div > button {
 }
 div > button:enabled {
   color: aliceblue;
+  cursor: pointer;
 }
 </style>
