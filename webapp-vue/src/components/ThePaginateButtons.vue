@@ -27,6 +27,9 @@ const emit = defineEmits(['next', 'prev', 'first', 'last'])
   </div>
 </template>
 <style scoped>
+div {
+  margin: 0% 0% 5% 0%;
+}
 div > button {
   margin-right: 2vw;
   padding: 1vh 2vw;

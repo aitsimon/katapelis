@@ -40,16 +40,18 @@ const handlePoster = url => {
   cursor: pointer;
 }
 .film > img {
-  width: 80%;
-  height: 100%;
+  width: 60%;
+  height: 80%;
 }
-.film > span {
-  margin-top: 2%;
-  margin-bottom: 2%;
+.film > a {
+  margin-top: 4%;
+  height: 16%;
+  width: 100%;
   font-size: larger;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  text-align: center;
 }
 .film:hover {
   transform: scale(1.05);
