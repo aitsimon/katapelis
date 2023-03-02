@@ -1,6 +1,6 @@
 <script setup>
 import BaseFilmCard from '@/components/BaseFilmCard.vue'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import BaseSearch from '../components/BaseSearch.vue'
 import ThePaginateButtons from '../components/ThePaginateButtons.vue'
 
@@ -9,7 +9,7 @@ const films = ref([])
 
 const textEntered = ref('')
 let pageIndex = ref(1)
-let inicio = ref(1)
+let start = ref(1)
 let defaultInit = ref(false)
 const randomArraySearch = () => {
   const titles = [
@@ -43,7 +43,7 @@ async function searchFilms(txt, page = 1) {
     .then(res => res.json())
     .then(data => {
       loading.value = false
-      ultimaPagina.value = Math.floor(parseInt(data.totalResults) / 10)
+      lastPageIndex.value = Math.floor(parseInt(data.totalResults) / 10)
       films.value = data.Search
     })
 }
@@ -65,10 +65,10 @@ const first = () => {
   searchFilms(textEntered.value, pageIndex.value)
 }
 const last = () => {
-  pageIndex.value = ultimaPagina.value
+  pageIndex.value = lastPageIndex.value
   searchFilms(textEntered.value, pageIndex.value)
 }
-const ultimaPagina = ref(0)
+const lastPageIndex = ref(0)
 </script>
 
 <template>
@@ -78,9 +78,9 @@ const ultimaPagina = ref(0)
     @prev="prev"
     @first="first"
     @last="last"
-    :inicio="inicio"
+    :start="start"
     :pageIndex="pageIndex"
-    :ultimaPagina="ultimaPagina"
+    :lastPageIndex="lastPageIndex"
     :defaultInit="defaultInit"
   />
   <article id="featured-films-wrapper">
@@ -112,24 +112,7 @@ const ultimaPagina = ref(0)
   grid-auto-rows: auto;
   /* row-gap: 1%; */
 }
-input {
-  background-color: rgba(245, 245, 245, 0.557);
-  width: fit-content;
-  height: 5vh;
-  border: none;
-  border-radius: 8px;
-  color: white;
-  outline: none;
-  font-size: large;
-  padding-left: 1vw;
-  position: absolute;
-  right: 8%;
-  top: 4%;
-}
-input::placeholder {
-  color: white;
-  font-size: large;
-}
+
 @media only screen and (min-width: 600px) {
   #featured-films {
     display: grid;

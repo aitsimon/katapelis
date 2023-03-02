@@ -1,5 +1,5 @@
 <script setup>
-defineProps(['inicio', 'ultimaPagina', 'pageIndex', 'defaultInit'])
+defineProps(['start', 'lastPageIndex', 'pageIndex', 'defaultInit'])
 const emit = defineEmits(['next', 'prev', 'first', 'last'])
 </script>
 <template>
@@ -7,14 +7,14 @@ const emit = defineEmits(['next', 'prev', 'first', 'last'])
     <button
       @click="emit('prev')"
       type="button"
-      :disabled="pageIndex <= inicio || !defaultInit"
+      :disabled="pageIndex <= start || !defaultInit"
     >
       Previous {{ pageIndex === 1 ? '' : pageIndex - 1 }}
     </button>
     <button
       @click="emit('next')"
       type="button"
-      :disabled="ultimaPagina <= pageIndex || !defaultInit"
+      :disabled="lastPageIndex <= pageIndex || !defaultInit"
     >
       Next {{ pageIndex === 1 ? '' : pageIndex + 1 }}
     </button>
