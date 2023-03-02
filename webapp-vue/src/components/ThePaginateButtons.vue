@@ -1,6 +1,6 @@
 <script setup>
 defineProps(['inicio', 'ultimaPagina', 'pageIndex', 'defaultInit'])
-const emit = defineEmits(['next', 'prev'])
+const emit = defineEmits(['next', 'prev', 'first', 'last'])
 </script>
 <template>
   <div>
@@ -17,6 +17,12 @@ const emit = defineEmits(['next', 'prev'])
       :disabled="ultimaPagina <= pageIndex || !defaultInit"
     >
       Next {{ pageIndex === 1 ? '' : pageIndex + 1 }}
+    </button>
+    <button @click="emit('first')" type="button" :disabled="!defaultInit">
+      First Page
+    </button>
+    <button @click="emit('last')" type="button" :disabled="!defaultInit">
+      Last Page
     </button>
   </div>
 </template>

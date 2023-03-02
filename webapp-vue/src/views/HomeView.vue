@@ -43,8 +43,7 @@ async function searchFilms(txt, page = 1) {
     .then(res => res.json())
     .then(data => {
       loading.value = false
-      ultimaPagina.value = parseInt(data.totalResults) / 10
-
+      ultimaPagina.value = Math.floor(parseInt(data.totalResults) / 10)
       films.value = data.Search
     })
 }
@@ -61,7 +60,15 @@ const prev = () => {
     searchFilms(textEntered.value, pageIndex.value)
   }
 }
-const ultimaPagina = ref(100)
+const first = () => {
+  pageIndex.value = 1
+  searchFilms(textEntered.value, pageIndex.value)
+}
+const last = () => {
+  pageIndex.value = ultimaPagina.value
+  searchFilms(textEntered.value, pageIndex.value)
+}
+const ultimaPagina = ref(0)
 </script>
 
 <template>
@@ -69,6 +76,8 @@ const ultimaPagina = ref(100)
   <ThePaginateButtons
     @next="next"
     @prev="prev"
+    @first="first"
+    @last="last"
     :inicio="inicio"
     :pageIndex="pageIndex"
     :ultimaPagina="ultimaPagina"

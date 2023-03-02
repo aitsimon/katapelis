@@ -40,8 +40,8 @@ const handlePoster = url => {
   cursor: pointer;
 }
 .film > img {
-  aspect-ratio: 3 / 4;
-  transform: scale(0.8);
+  width: 80%;
+  height: 100%;
 }
 .film > span {
   margin-top: 2%;
