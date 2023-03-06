@@ -8,7 +8,7 @@ const film = ref([])
 const getData = async () => {
   try {
     const { data } = await axios.get(
-      'http://www.omdbapi.com/?apikey=ab64c929&i=' + route.params.id,
+      'https://www.omdbapi.com/?apikey=ab64c929&i=' + route.params.id,
     )
     film.value = data
     loading.value = false
