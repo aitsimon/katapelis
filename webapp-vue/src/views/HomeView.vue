@@ -1,94 +1,33 @@
 <script setup>
 import BaseFilmCard from '@/components/BaseFilmCard.vue'
-import { ref } from 'vue'
 import BaseSearch from '../components/BaseSearch.vue'
 import ThePaginateButtons from '../components/ThePaginateButtons.vue'
-
-let loading = ref(true)
-const films = ref([])
-
-const textEntered = ref('')
-let pageIndex = ref(1)
-let start = ref(1)
-let defaultInit = ref(false)
-const randomArraySearch = () => {
-  const titles = [
-    'star',
-    'avengers',
-    'lord',
-    'disney',
-    'batman',
-    'avatar',
-    'saw',
-    'mickey',
-    'time',
-  ]
-  return titles[Math.floor(Math.random() * titles.length)]
-}
-fetch(`https://www.omdbapi.com/?s=${randomArraySearch()}&apikey=ab64c929`)
-  .then(res => res.json())
-  .then(data => {
-    loading.value = false
-    films.value = data.Search
-  })
-async function searchFilms(txt, page = 1) {
-  loading.value = true
-  defaultInit.value = true
-  textEntered.value = txt
-  fetch(
-    `https://www.omdbapi.com/?s=${txt
-      .toLowerCase()
-      .trim()}&apikey=ab64c929&page=${page}`,
-  )
-    .then(res => res.json())
-    .then(data => {
-      loading.value = false
-      lastPageIndex.value = Math.floor(parseInt(data.totalResults) / 10)
-      films.value = data.Search
-    })
-}
-const next = () => {
-  if (textEntered.value !== '') {
-    pageIndex.value++
-    searchFilms(textEntered.value, pageIndex.value)
-  }
-}
-
-const prev = () => {
-  if (textEntered.value !== '') {
-    pageIndex.value--
-    searchFilms(textEntered.value, pageIndex.value)
-  }
-}
-const first = () => {
-  pageIndex.value = 1
-  searchFilms(textEntered.value, pageIndex.value)
-}
-const last = () => {
-  pageIndex.value = lastPageIndex.value
-  searchFilms(textEntered.value, pageIndex.value)
-}
-const lastPageIndex = ref(0)
+import { useFilmsStore } from '../store/films'
+import { onMounted } from 'vue'
+const filmsStore = useFilmsStore()
+onMounted(() => filmsStore.getFilms())
 </script>
 
 <template>
-  <BaseSearch @changeText="texto => searchFilms(texto)" />
+  <BaseSearch @changeText="texto => filmsStore.getFilms(texto)" />
   <ThePaginateButtons
-    @next="next"
-    @prev="prev"
-    @first="first"
-    @last="last"
-    :start="start"
-    :pageIndex="pageIndex"
-    :lastPageIndex="lastPageIndex"
-    :defaultInit="defaultInit"
+    @next="filmsStore.nextPage()"
+    @prev="filmsStore.previousPage()"
+    @first="filmsStore.goFirstPage()"
+    @last="filmsStore.goLastPage()"
+    :start="filmsStore.startIndex"
+    :pageIndex="filmsStore.pageIndex"
+    :lastPageIndex="filmsStore.lastIndex"
+    :defaultInit="filmsStore.defaultInit"
   />
   <article id="featured-films-wrapper">
     <section id="featured-films">
-      <template v-if="loading"><span class="loader"></span></template>
+      <template v-if="filmsStore.loading"
+        ><span class="loader"></span
+      ></template>
       <template v-else>
         <BaseFilmCard
-          v-for="film in films"
+          v-for="film in filmsStore.films"
           :key="film.imdbID"
           :titulo="film.Title"
           :poster="film.Poster"

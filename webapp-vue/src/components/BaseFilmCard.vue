@@ -8,7 +8,6 @@ defineProps({
   },
   poster: {
     type: String,
-    default: 'assets/imgs/imgPlaceholder.png',
   },
   id: {
     type: String,

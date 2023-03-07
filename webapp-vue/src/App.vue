@@ -21,7 +21,8 @@ import TheFooter from '@/components/TheFooter.vue'
 }
 @font-face {
   font-family: 'Inter';
-  src: url('assets/Inter/Inter-VariableFont_slnt\,wght.ttf') format('truetype');
+  src: url('src/assets/Inter/Inter-VariableFont_slnt\,wght.ttf')
+    format('truetype');
 }
 :root {
   --light-blue: #004e92;
