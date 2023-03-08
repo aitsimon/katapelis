@@ -11,6 +11,11 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: '/?page=:pageNumber\\&search=:search',
+      name: 'search',
+      component: HomeView,
+    },
+    {
       path: '/:id',
       name: 'film',
       component: FilmView,
