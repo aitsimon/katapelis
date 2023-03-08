@@ -11,7 +11,7 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/?page=:pageNumber\\&search=:search',
+      path: '/?page=:page\\&search=:search',
       name: 'search',
       component: HomeView,
     },

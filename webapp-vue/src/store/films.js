@@ -17,7 +17,6 @@ export const useFilmsStore = defineStore('filmStore', () => {
     text = route.query.search || randomInitialFilms(),
     page = route.query.page !== undefined ? route.query.page : 1,
   ) {
-    router.push(`/?page=${page}&search=${text}`)
     loading.value = true
     defaultInit.value = true
     textEntered.value = text

@@ -1,18 +1,47 @@
 <script setup>
+import { ref, watch } from 'vue'
 import BaseFilmCard from '@/components/BaseFilmCard.vue'
 import BaseSearch from '../components/BaseSearch.vue'
 import ThePaginateButtons from '../components/ThePaginateButtons.vue'
 import { useFilmsStore } from '../store/films'
 import { onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+const router = useRouter()
+const route = useRoute()
 const filmsStore = useFilmsStore()
 onMounted(() => filmsStore.getFilms())
+const textSearched = ref(route.query.search)
+const currentPage = ref(route.query.page)
+console.log(route.query.search, textSearched, currentPage)
+watch(textSearched, async () => {
+  filmsStore.getFilms(textSearched.value)
+})
+watch(currentPage, async () => {
+  filmsStore.getFilms(textSearched.value, currentPage.value)
+})
 </script>
 
 <template>
-  <BaseSearch @changeText="texto => filmsStore.getFilms(texto)" />
+  <BaseSearch
+    @changeText="texto => router.replace('/?page=1&search=' + texto)"
+  />
   <ThePaginateButtons
-    @next="filmsStore.nextPage()"
-    @prev="filmsStore.previousPage()"
+    @next="
+      router.replace(
+        '/?page=' +
+          (parseInt(route.query.page) + 1) +
+          '&search=' +
+          route.query.search,
+      )
+    "
+    @prev="
+      router.replace(
+        '/?page=' +
+          (parseInt(route.query.page) - 1) +
+          '&search=' +
+          route.query.search,
+      )
+    "
     @first="filmsStore.goFirstPage()"
     @last="filmsStore.goLastPage()"
     :start="filmsStore.startIndex"
