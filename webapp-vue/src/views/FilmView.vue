@@ -1,110 +1,122 @@
 <script setup>
-import { ref } from 'vue'
-import axios from 'axios'
-import { useRoute } from 'vue-router'
-const loading = ref(true)
-const route = useRoute()
-const film = ref([])
-const getData = async () => {
-  try {
-    const { data } = await axios.get(
-      'https://www.omdbapi.com/?apikey=ab64c929&i=' + route.params.id,
-    )
-    film.value = data
-    loading.value = false
-  } catch (error) {
-    console.log(error)
-  }
-}
-getData()
+import { onMounted } from 'vue'
+import { useFilmDetailsStore } from '../store/filmDetails'
+const filmDetailsStore = useFilmDetailsStore()
+onMounted(() => filmDetailsStore.getFilmDetails())
 </script>
 
 <template>
-  <div v-if="loading">
+  <div v-if="filmDetailsStore.loading">
     <span class="loader" />
   </div>
   <div v-else id="main-content">
     <article id="film-poster">
-      <img :src="`${film.Poster}`" />
+      <img :src="`${filmDetailsStore.filmDetails.Poster}`" />
     </article>
     <article id="film-info">
-      <h1>{{ film.Title }}</h1>
+      <h1>{{ filmDetailsStore.filmDetails.Title }}</h1>
       <section id="film-info-specs">
         <section class="info-item" id="year">
           <span
             ><span class="info-term">Year: </span
-            ><span class="info-content">{{ film.Year }}</span></span
+            ><span class="info-content">{{
+              filmDetailsStore.filmDetails.Year
+            }}</span></span
           >
         </section>
         <section class="info-item" id="rated">
           <span
             ><span class="info-term">Rated: </span
-            ><span class="info-content">{{ film.Rated }}</span></span
+            ><span class="info-content">{{
+              filmDetailsStore.filmDetails.Rated
+            }}</span></span
           >
         </section>
         <section class="info-item" id="released">
           <span
             ><span class="info-term">Released: </span
-            ><span class="info-content">{{ film.Released }}</span></span
+            ><span class="info-content">{{
+              filmDetailsStore.filmDetails.Released
+            }}</span></span
           >
         </section>
         <section class="info-item" id="runtime">
           <span
             ><span class="info-term">Runtime: </span
-            ><span class="info-content">{{ film.Runtime }}</span></span
+            ><span class="info-content">{{
+              filmDetailsStore.filmDetails.Runtime
+            }}</span></span
           >
         </section>
         <section class="info-item" id="genre">
           <span
             ><span class="info-term">Genre: </span
-            ><span class="info-content">{{ film.Genre }}</span></span
+            ><span class="info-content">{{
+              filmDetailsStore.filmDetails.Genre
+            }}</span></span
           >
         </section>
         <section class="info-item" id="director">
           <span
             ><span class="info-term">Director: </span
-            ><span class="info-content">{{ film.Director }}</span></span
+            ><span class="info-content">{{
+              filmDetailsStore.filmDetails.Director
+            }}</span></span
           >
         </section>
         <section class="info-item" id="writer">
           <span
             ><span class="info-term">Writer: </span
-            ><span class="info-content">{{ film.Writer }}</span></span
+            ><span class="info-content">{{
+              filmDetailsStore.filmDetails.Writer
+            }}</span></span
           >
         </section>
         <section class="info-item" id="actors">
           <span
             ><span class="info-term">Actors: </span
-            ><span class="info-content">{{ film.Actors }}</span></span
+            ><span class="info-content">{{
+              filmDetailsStore.filmDetails.Actors
+            }}</span></span
           >
         </section>
         <section class="info-item" id="plot">
           <span
             ><span class="info-term">Plot: </span
-            ><span class="info-content">{{ film.Plot }}</span></span
+            ><span class="info-content">{{
+              filmDetailsStore.filmDetails.Plot
+            }}</span></span
           >
         </section>
         <section class="info-item" id="language">
           <span
             ><span class="info-term">Language: </span
-            ><span class="info-content">{{ film.Language }}</span></span
+            ><span class="info-content">{{
+              filmDetailsStore.filmDetails.Language
+            }}</span></span
           >
         </section>
         <section class="info-item" id="country">
           <span
             ><span class="info-term">Country: </span
-            ><span class="info-content">{{ film.Country }}</span></span
+            ><span class="info-content">{{
+              filmDetailsStore.filmDetails.Country
+            }}</span></span
           >
         </section>
         <section class="info-item" id="awards">
           <span
             ><span class="info-term">Awards: </span
-            ><span class="info-content">{{ film.Awards }}</span></span
+            ><span class="info-content">{{
+              filmDetailsStore.filmDetails.Awards
+            }}</span></span
           >
         </section>
         <div id="film-rating">
           <img src="../assets/icons8-imdb-96.png" alt="IMDB icon" />
-          <span id="rating-score">{{ film?.Ratings[0]?.Value }}</span>
+          <span id="rating-score">{{
+            filmDetailsStore.filmDetails?.Ratings[0]?.Value
+          }}</span>
         </div>
       </section>
     </article>

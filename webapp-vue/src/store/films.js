@@ -1,85 +1,85 @@
 import { defineStore } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
+import { ref } from 'vue'
 
-export const useFilmsStore = defineStore('filmsStore', {
-  state: () => {
-    return {
-      films: [],
-      pageIndex: 1,
-      startIndex: 1,
-      lastIndex: 0,
-      defaultInit: false,
-      loading: true,
-      textEntered: '',
-      route: useRoute(),
-      router: useRouter(),
-    }
-  },
-  actions: {
-    //if text param is not provided then by default is the last search text in URL
-    /**
-     * if page param is not provided then by default it checks if the text in the URL
-     * matches with the current search text. If it does, then it searches the URL for
-     * page Index of the previous search. Otherwise it searches the page equals to 1 because its
-     * a new search term.
-     */
-    getFilms(
-      text = new URLSearchParams(document.location.href).get('search') ||
-        this.randomInitialFilms(),
-      page = new URLSearchParams(document.location.href).get(
-        'http://127.0.0.1:5173/?page',
-      ) !== null || undefined
-        ? new URLSearchParams(document.location.href).get(
-            'http://127.0.0.1:5173/?page',
-          )
-        : 1,
-    ) {
-      this.router.push(`/?page=${page}&search=${text}`)
-      this.loading = true
-      this.defaultInit = true
-      this.textEntered = text
-      this.pageIndex = page
-      fetch(
-        `https://www.omdbapi.com/?s=${text
-          .toLowerCase()
-          .trim()}&apikey=ab64c929&page=${page}`,
-      )
-        .then(res => res.json())
-        .then(data => {
-          this.loading = false
-          this.lastIndex = Math.floor(parseInt(data.totalResults) / 10)
-          this.films = data.Search
-        })
-    },
-    nextPage() {
-      this.pageIndex++
-      this.getFilms(this.textEntered, this.pageIndex)
-    },
-    previousPage() {
-      this.pageIndex--
-      this.getFilms(this.textEntered, this.pageIndex)
-    },
-    goLastPage() {
-      this.pageIndex = this.lastIndex
-      this.getFilms(this.textEntered, this.pageIndex)
-    },
-    goFirstPage() {
-      this.pageIndex = this.startIndex
-      this.getFilms(this.textEntered, this.pageIndex)
-    },
-    randomInitialFilms() {
-      const titles = [
-        'star',
-        'avengers',
-        'lord',
-        'disney',
-        'batman',
-        'avatar',
-        'saw',
-        'mickey',
-        'time',
-      ]
-      return titles[Math.floor(Math.random() * titles.length)]
-    },
-  },
+export const useFilmsStore = defineStore('filmStore', () => {
+  let films = ref([])
+  let pageIndex = ref(1)
+  let startIndex = ref(1)
+  let lastIndex = ref(0)
+  let defaultInit = ref(false)
+  let loading = ref(true)
+  let textEntered = ref('')
+  const route = useRoute()
+  const router = useRouter()
+
+  function getFilms(
+    text = route.query.search || randomInitialFilms(),
+    page = route.query.page !== undefined ? route.query.page : 1,
+  ) {
+    router.push(`/?page=${page}&search=${text}`)
+    loading.value = true
+    defaultInit.value = true
+    textEntered.value = text
+    pageIndex.value = page
+    fetch(
+      `https://www.omdbapi.com/?s=${text
+        .toLowerCase()
+        .trim()}&apikey=ab64c929&page=${page}`,
+    )
+      .then(res => res.json())
+      .then(data => {
+        loading.value = false
+        lastIndex.value = Math.round(parseInt(data.totalResults) / 10)
+        films.value = data.Search
+      })
+  }
+  // eslint-disable-next-line no-unused-vars
+  function nextPage() {
+    pageIndex.value++
+    getFilms(textEntered.value, pageIndex.value)
+  }
+  // eslint-disable-next-line no-unused-vars
+  function previousPage() {
+    pageIndex.value--
+    getFilms(textEntered.value, pageIndex.value)
+  }
+  // eslint-disable-next-line no-unused-vars
+  function goLastPage() {
+    pageIndex.value = lastIndex.value
+    getFilms(textEntered.value, pageIndex.value)
+  }
+  // eslint-disable-next-line no-unused-vars
+  function goFirstPage() {
+    pageIndex.value = startIndex.value
+    getFilms(textEntered.value, pageIndex.value)
+  }
+  function randomInitialFilms() {
+    const titles = [
+      'star',
+      'avengers',
+      'lord',
+      'disney',
+      'batman',
+      'avatar',
+      'saw',
+      'mickey',
+      'time',
+    ]
+    return titles[Math.floor(Math.random() * titles.length)]
+  }
+
+  return {
+    films,
+    startIndex,
+    pageIndex,
+    lastIndex,
+    defaultInit,
+    loading,
+    getFilms,
+    nextPage,
+    previousPage,
+    goFirstPage,
+    goLastPage,
+  }
 })
