@@ -7,7 +7,6 @@ export const useFilmsStore = defineStore('filmStore', () => {
   let currentPage = ref(1)
   let firstPage = ref(1)
   let lastPage = ref(0)
-  let defaultInit = ref(false)
   let loading = ref(true)
   const route = useRoute()
 
@@ -34,7 +33,6 @@ export const useFilmsStore = defineStore('filmStore', () => {
     firstPage,
     currentPage,
     lastPage,
-    defaultInit,
     loading,
     getFilms,
   }

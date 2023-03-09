@@ -16,26 +16,15 @@ export const useFilmDetailsStore = defineStore('filmDetailsStore', () => {
       filmDetails.value = filmExistsInStore(route.params.id)
       loading.value = false
     } else {
-      try {
-        const { data } = await axios.get(
-          'https://www.omdbapi.com/?apikey=ab64c929&i=' + route.params.id,
-        )
-        filmDetails.value = data
-        data !== undefined
-          ? cachedFilmDetails.value.push({ id: route.params.id, data: data })
-          : ''
-        setTimeout(
-          () =>
-            cachedFilmDetails.value.splice(
-              cachedFilmDetails.value.indexOf(data),
-              1,
-            ),
-          TWO_MINUTES,
-        )
-        loading.value = false
-      } catch (error) {
-        console.log(error)
-      }
+      const { data } = await axios
+        .get('https://www.omdbapi.com/?apikey=ab64c929&i=' + route.params.id)
+        .catch(error => console.log(error))
+      filmDetails.value = data
+      data !== undefined
+        ? cachedFilmDetails.value.push({ id: route.params.id, data: data })
+        : ''
+      createTimeOutTwoMinutes(data)
+      loading.value = false
     }
   }
   function filmExistsInStore(id) {
@@ -48,6 +37,16 @@ export const useFilmDetailsStore = defineStore('filmDetailsStore', () => {
       }
     })
     return check ? filmDetails : false
+  }
+  function createTimeOutTwoMinutes(data) {
+    setTimeout(
+      () =>
+        cachedFilmDetails.value.splice(
+          cachedFilmDetails.value.indexOf(data),
+          1,
+        ),
+      TWO_MINUTES,
+    )
   }
   return { filmDetails, loading, getFilmDetails }
 })

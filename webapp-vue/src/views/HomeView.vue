@@ -5,7 +5,7 @@ import BaseSearch from '../components/BaseSearch.vue'
 import ThePaginateButtons from '../components/ThePaginateButtons.vue'
 import { useFilmsStore } from '../store/films'
 import { onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 function randomInitialFilms() {
   const titles = [
     'star',
@@ -26,24 +26,29 @@ const filmsStore = useFilmsStore()
 onMounted(() => {
   router.replace('/?page=1&search=' + randomInitialFilms())
 })
-watch(
-  () => route.query.search,
-  async newText => {
-    filmsStore.getFilms(newText)
-    filmsStore.defaultInit = true
-  },
-)
-watch(
-  () => route.query.page,
-  async newCurrentPage => {
-    filmsStore.getFilms(route.query.search, newCurrentPage)
-  },
-)
+// watch(
+//   () => route.query.search,
+//   async searchedText => {
+//     filmsStore.getFilms(searchedText)
+//     filmsStore.defaultInit = true
+//   },
+// )
+// watch(
+//   () => route.query.page,
+//   async newCurrentPage => {
+//     filmsStore.getFilms(route.query.search, newCurrentPage)
+//   },
+// )
+onBeforeRouteUpdate((to, from) => {
+  filmsStore.getFilms(to.query.search, to.query.page)
+})
 </script>
 
 <template>
   <BaseSearch
-    @changeText="texto => router.replace('/?page=1&search=' + texto)"
+    @changeText="
+      searchedText => router.replace('/?page=1&search=' + searchedText)
+    "
   />
   <ThePaginateButtons
     @next="
@@ -68,10 +73,9 @@ watch(
         '/?page=' + filmsStore.lastPage + '&search=' + route.query.search,
       )
     "
-    :firstPage="filmsStore.firstPage"
-    :currentPage="filmsStore.currentPage"
+    :first-page="filmsStore.firstPage"
+    :current-page="filmsStore.currentPage"
     :last-page="filmsStore.lastPage"
-    :defaultInit="filmsStore.defaultInit"
   />
   <article id="featured-films-wrapper">
     <section id="featured-films">

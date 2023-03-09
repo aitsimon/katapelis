@@ -1,5 +1,5 @@
 <script setup>
-defineProps(['firstPage', 'lastPage', 'currentPage', 'defaultInit'])
+defineProps(['firstPage', 'lastPage', 'currentPage'])
 const emit = defineEmits(['next', 'prev', 'first', 'last'])
 </script>
 <template>
@@ -7,23 +7,19 @@ const emit = defineEmits(['next', 'prev', 'first', 'last'])
     <button
       @click="emit('prev')"
       type="button"
-      :disabled="currentPage <= firstPage || !defaultInit"
+      :disabled="currentPage <= firstPage"
     >
       Previous {{ currentPage === 1 ? '' : currentPage - 1 }}
     </button>
     <button
       @click="emit('next')"
       type="button"
-      :disabled="lastPage <= currentPage || !defaultInit"
+      :disabled="lastPage <= currentPage"
     >
       Next {{ currentPage === 1 ? '' : currentPage + 1 }}
     </button>
-    <button @click="emit('first')" type="button" :disabled="!defaultInit">
-      First Page
-    </button>
-    <button @click="emit('last')" type="button" :disabled="!defaultInit">
-      Last Page
-    </button>
+    <button @click="emit('first')" type="button">First Page</button>
+    <button @click="emit('last')" type="button">Last Page</button>
   </div>
 </template>
 <style scoped>
