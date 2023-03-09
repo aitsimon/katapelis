@@ -1,24 +1,44 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { watch } from 'vue'
 import BaseFilmCard from '@/components/BaseFilmCard.vue'
 import BaseSearch from '../components/BaseSearch.vue'
 import ThePaginateButtons from '../components/ThePaginateButtons.vue'
 import { useFilmsStore } from '../store/films'
 import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+function randomInitialFilms() {
+  const titles = [
+    'star',
+    'avengers',
+    'lord',
+    'disney',
+    'batman',
+    'avatar',
+    'saw',
+    'mickey',
+    'time',
+  ]
+  return titles[Math.floor(Math.random() * titles.length)]
+}
 const router = useRouter()
 const route = useRoute()
 const filmsStore = useFilmsStore()
-onMounted(() => filmsStore.getFilms())
-const textSearched = ref(route.query.search)
-const currentPage = ref(route.query.page)
-console.log(route.query.search, textSearched, currentPage)
-watch(textSearched, async () => {
-  filmsStore.getFilms(textSearched.value)
+onMounted(() => {
+  router.replace('/?page=1&search=' + randomInitialFilms())
 })
-watch(currentPage, async () => {
-  filmsStore.getFilms(textSearched.value, currentPage.value)
-})
+watch(
+  () => route.query.search,
+  async newText => {
+    filmsStore.getFilms(newText)
+    filmsStore.defaultInit = true
+  },
+)
+watch(
+  () => route.query.page,
+  async newCurrentPage => {
+    filmsStore.getFilms(route.query.search, newCurrentPage)
+  },
+)
 </script>
 
 <template>
@@ -42,11 +62,15 @@ watch(currentPage, async () => {
           route.query.search,
       )
     "
-    @first="filmsStore.goFirstPage()"
-    @last="filmsStore.goLastPage()"
-    :start="filmsStore.startIndex"
-    :pageIndex="filmsStore.pageIndex"
-    :lastPageIndex="filmsStore.lastIndex"
+    @first="router.replace('/?page=1&search=' + route.query.search)"
+    @last="
+      router.replace(
+        '/?page=' + filmsStore.lastPage + '&search=' + route.query.search,
+      )
+    "
+    :firstPage="filmsStore.firstPage"
+    :currentPage="filmsStore.currentPage"
+    :last-page="filmsStore.lastPage"
     :defaultInit="filmsStore.defaultInit"
   />
   <article id="featured-films-wrapper">

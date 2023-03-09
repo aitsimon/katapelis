@@ -1,7 +1,5 @@
 <script setup>
-import { useRoute } from 'vue-router'
-const route = useRoute()
-defineProps(['start', 'lastPageIndex', 'pageIndex', 'defaultInit'])
+defineProps(['firstPage', 'lastPage', 'currentPage', 'defaultInit'])
 const emit = defineEmits(['next', 'prev', 'first', 'last'])
 </script>
 <template>
@@ -9,17 +7,16 @@ const emit = defineEmits(['next', 'prev', 'first', 'last'])
     <button
       @click="emit('prev')"
       type="button"
-      :disabled="pageIndex <= start || !defaultInit"
+      :disabled="currentPage <= firstPage || !defaultInit"
     >
-      Previous {{ pageIndex === 1 ? '' : pageIndex - 1 }}
+      Previous {{ currentPage === 1 ? '' : currentPage - 1 }}
     </button>
     <button
       @click="emit('next')"
       type="button"
-      :disabled="lastPageIndex <= pageIndex || !defaultInit"
+      :disabled="lastPage <= currentPage || !defaultInit"
     >
-      <!-- Next {{ pageIndex === 1 ? '' : pageIndex + 1 }} -->
-      Next {{ parseInt(route.query.page) + 1 }}
+      Next {{ currentPage === 1 ? '' : currentPage + 1 }}
     </button>
     <button @click="emit('first')" type="button" :disabled="!defaultInit">
       First Page
