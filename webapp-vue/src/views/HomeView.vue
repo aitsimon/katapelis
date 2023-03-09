@@ -1,5 +1,5 @@
 <script setup>
-import { watch } from 'vue'
+// import { watch } from 'vue'
 import BaseFilmCard from '@/components/BaseFilmCard.vue'
 import BaseSearch from '../components/BaseSearch.vue'
 import ThePaginateButtons from '../components/ThePaginateButtons.vue'
@@ -39,7 +39,7 @@ onMounted(() => {
 //     filmsStore.getFilms(route.query.search, newCurrentPage)
 //   },
 // )
-onBeforeRouteUpdate((to, from) => {
+onBeforeRouteUpdate(to => {
   filmsStore.getFilms(to.query.search, to.query.page)
 })
 </script>
