@@ -32,20 +32,21 @@ import TheFooter from '@/components/TheFooter.vue'
 
 body {
   width: 100%;
-  height: 100%;
+  height: 190vh;
   padding: 0;
   margin: 0;
   background-image: linear-gradient(#000428, #004e92);
   background-size: contain;
   background-repeat: no-repeat;
 }
+
 a:any-link {
   color: white;
   text-decoration: none;
 }
 #content-wrapper {
   width: 100%;
-  height: 100%;
+  height: max-content;
   font-family: Inter, sanserfif;
   color: var(--pure-white);
   display: flex;
