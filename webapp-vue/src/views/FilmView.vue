@@ -2,8 +2,10 @@
 import { onMounted } from 'vue'
 import { useFilmDetailsStore } from '../store/filmDetails'
 import BaseLoader from '../components/BaseLoader.vue'
+import BaseFilmInfoItem from '../components/BaseFilmInfoItem.vue'
 const filmDetailsStore = useFilmDetailsStore()
 onMounted(() => filmDetailsStore.getFilmDetails())
+const scapeItemIteration = ['Ratings', 'imdbRating', 'imdbVotes']
 </script>
 
 <template>
@@ -16,110 +18,21 @@ onMounted(() => filmDetailsStore.getFilmDetails())
     </article>
     <article id="film-info">
       <h1>{{ filmDetailsStore.filmDetails.Title }}</h1>
-      <section id="film-info-specs">
-        <section class="info-item" id="year">
-          <span
-            ><span class="info-term">Year: </span
-            ><span class="info-content">{{
-              filmDetailsStore.filmDetails.Year
-            }}</span></span
-          >
-        </section>
-        <section class="info-item" id="rated">
-          <span
-            ><span class="info-term">Rated: </span
-            ><span class="info-content">{{
-              filmDetailsStore.filmDetails.Rated
-            }}</span></span
-          >
-        </section>
-        <section class="info-item" id="released">
-          <span
-            ><span class="info-term">Released: </span
-            ><span class="info-content">{{
-              filmDetailsStore.filmDetails.Released
-            }}</span></span
-          >
-        </section>
-        <section class="info-item" id="runtime">
-          <span
-            ><span class="info-term">Runtime: </span
-            ><span class="info-content">{{
-              filmDetailsStore.filmDetails.Runtime
-            }}</span></span
-          >
-        </section>
-        <section class="info-item" id="genre">
-          <span
-            ><span class="info-term">Genre: </span
-            ><span class="info-content">{{
-              filmDetailsStore.filmDetails.Genre
-            }}</span></span
-          >
-        </section>
-        <section class="info-item" id="director">
-          <span
-            ><span class="info-term">Director: </span
-            ><span class="info-content">{{
-              filmDetailsStore.filmDetails.Director
-            }}</span></span
-          >
-        </section>
-        <section class="info-item" id="writer">
-          <span
-            ><span class="info-term">Writer: </span
-            ><span class="info-content">{{
-              filmDetailsStore.filmDetails.Writer
-            }}</span></span
-          >
-        </section>
-        <section class="info-item" id="actors">
-          <span
-            ><span class="info-term">Actors: </span
-            ><span class="info-content">{{
-              filmDetailsStore.filmDetails.Actors
-            }}</span></span
-          >
-        </section>
-        <section class="info-item" id="plot">
-          <span
-            ><span class="info-term">Plot: </span
-            ><span class="info-content">{{
-              filmDetailsStore.filmDetails.Plot
-            }}</span></span
-          >
-        </section>
-        <section class="info-item" id="language">
-          <span
-            ><span class="info-term">Language: </span
-            ><span class="info-content">{{
-              filmDetailsStore.filmDetails.Language
-            }}</span></span
-          >
-        </section>
-        <section class="info-item" id="country">
-          <span
-            ><span class="info-term">Country: </span
-            ><span class="info-content">{{
-              filmDetailsStore.filmDetails.Country
-            }}</span></span
-          >
-        </section>
-        <section class="info-item" id="awards">
-          <span
-            ><span class="info-term">Awards: </span
-            ><span class="info-content">{{
-              filmDetailsStore.filmDetails.Awards
-            }}</span></span
-          >
-        </section>
-        <div id="film-rating">
-          <img src="../assets/icons8-imdb-96.png" alt="IMDB icon" />
-          <span id="rating-score">{{
-            filmDetailsStore.filmDetails?.Ratings[0]?.Value
-          }}</span>
-        </div>
-      </section>
+      <template
+        id="film-info-specs"
+        v-for="(value, key) in filmDetailsStore.filmDetails"
+        :key="key"
+      >
+        <template v-if="!scapeItemIteration.includes(key)">
+          <BaseFilmInfoItem :name="key" :data="value" />
+        </template>
+      </template>
+      <div id="film-rating">
+        <img src="../assets/icons8-imdb-96.png" alt="IMDB icon" />
+        <span id="rating-score">{{
+          filmDetailsStore.filmDetails?.Ratings[0]?.Value
+        }}</span>
+      </div>
     </article>
   </div>
 </template>
@@ -159,15 +72,6 @@ onMounted(() => filmDetailsStore.getFilmDetails())
   justify-content: space-around;
   align-items: start;
   gap: 2vh;
-}
-.info-item {
-  text-align: justify;
-}
-.info-term {
-  font-weight: 600;
-}
-.info-content {
-  font-weight: 300;
 }
 #film-rating {
   width: 100%;
@@ -250,11 +154,11 @@ onMounted(() => filmDetailsStore.getFilmDetails())
   #film-info h1 {
     font-size: 3rem;
   }
-  .info-term {
+  /* .info-term {
     font-size: 1.25rem;
   }
   .info-content {
     font-size: 1rem;
-  }
+  } */
 }
 </style>

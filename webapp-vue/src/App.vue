@@ -32,7 +32,7 @@ import TheFooter from '@/components/TheFooter.vue'
 
 body {
   width: 100%;
-  height: 190vh;
+  height: 300vh;
   padding: 0;
   margin: 0;
   background-image: linear-gradient(#000428, #004e92);
