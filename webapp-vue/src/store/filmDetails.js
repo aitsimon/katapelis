@@ -5,17 +5,19 @@ import { ref } from 'vue'
 
 export const useFilmDetailsStore = defineStore('filmDetailsStore', () => {
   const TWO_MINUTES = 120000
+  let loading = ref(true)
   let filmDetails = ref([])
   let cachedFilmDetails = ref([])
-  let loading = ref(true)
   const route = useRoute()
 
   // eslint-disable-next-line no-unused-vars
   async function getFilmDetails() {
     if (filmExistsInStore(route.params.id) !== false) {
+      loading.value = true
       filmDetails.value = filmExistsInStore(route.params.id)
       loading.value = false
     } else {
+      loading.value = true
       const { data } = await axios
         .get('https://www.omdbapi.com/?apikey=ab64c929&i=' + route.params.id)
         .catch(error => console.log(error))
