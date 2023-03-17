@@ -154,11 +154,5 @@ const scapeItemIteration = ['Ratings', 'imdbRating', 'imdbVotes']
   #film-info h1 {
     font-size: 3rem;
   }
-  /* .info-term {
-    font-size: 1.25rem;
-  }
-  .info-content {
-    font-size: 1rem;
-  } */
 }
 </style>
