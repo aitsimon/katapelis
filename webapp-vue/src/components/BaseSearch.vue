@@ -15,6 +15,7 @@ const handleEvent = event => {
 
 <style scoped>
 input {
+  position: static;
   background-color: rgba(245, 245, 245, 0.557);
   width: fit-content;
   height: 5vh;
@@ -24,14 +25,19 @@ input {
   outline: none;
   font-size: large;
   padding-left: 1vw;
-  position: absolute;
-  right: 8%;
-  top: 4%;
   font-weight: 100;
+  margin-bottom: 5%;
 }
 input::placeholder {
   color: white;
   font-size: medium;
   font-weight: 100;
+}
+@media only screen and (min-width: 600px) {
+  input {
+    position: absolute !important;
+    right: 8%;
+    top: 8%;
+  }
 }
 </style>

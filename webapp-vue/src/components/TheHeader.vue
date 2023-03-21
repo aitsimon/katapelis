@@ -44,8 +44,8 @@ header {
   transform: scale(1.1);
 }
 #logo {
-  width: 90%;
-  height: 60%;
+  width: 10vh;
+  height: 10vh;
   filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(141deg)
     brightness(107%) contrast(100%);
 }
