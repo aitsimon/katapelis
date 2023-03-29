@@ -1,13 +1,31 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+function randomInitialFilms() {
+  const titles = [
+    'star',
+    'avengers',
+    'lord',
+    'disney',
+    'batman',
+    'avatar',
+    'saw',
+    'mickey',
+    'time',
+  ]
+  return titles[Math.floor(Math.random() * titles.length)]
+}
+function randomHome() {
+  router.replace('/?page=1&search=' + randomInitialFilms())
+}
 </script>
 
 <template>
   <header>
     <div id="header-wrapper">
-      <router-link :to="{ name: 'home' }" id="logo-container">
+      <a @click="randomHome" id="logo-container">
         <img src="./icons/logo.svg" id="logo" alt="logo of the web" />
-      </router-link>
+      </a>
     </div>
   </header>
 </template>

@@ -7,6 +7,7 @@ import BaseLoader from '../components/BaseLoader.vue'
 import { useFilmsStore } from '../store/films'
 import { onMounted } from 'vue'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
+import apiservice from '@/api-service.js'
 function randomInitialFilms() {
   const titles = [
     'star',
@@ -41,7 +42,7 @@ onMounted(() => {
 //   },
 // )
 onBeforeRouteUpdate(to => {
-  filmsStore.getFilms(to.query.search, to.query.page)
+  apiservice.getFilms(to.query.search, to.query.page)
 })
 </script>
 
@@ -71,19 +72,19 @@ onBeforeRouteUpdate(to => {
     @first="router.replace('/?page=1&search=' + route.query.search)"
     @last="
       router.replace(
-        '/?page=' + filmsStore.lastPage + '&search=' + route.query.search,
+        '/?page=' + apiservice.lastPage + '&search=' + route.query.search,
       )
     "
-    :first-page="filmsStore.firstPage"
-    :current-page="filmsStore.currentPage"
-    :last-page="filmsStore.lastPage"
+    :first-page="apiservice.firstPage"
+    :current-page="apiservice.currentPage"
+    :last-page="apiservice.lastPage"
   />
   <article id="featured-films-wrapper">
     <section id="featured-films">
-      <template v-if="filmsStore.loading"><BaseLoader /></template>
+      <template v-if="apiservice.loading"><BaseLoader /></template>
       <template v-else>
         <BaseFilmCard
-          v-for="film in filmsStore.films"
+          v-for="film in apiservice.films.value"
           :key="film.imdbID"
           :titulo="film.Title"
           :poster="film.Poster"
